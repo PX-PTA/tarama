@@ -26,7 +26,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/core-ui.css') }}">
-
+        
         @livewireStyles
 
         <!-- Scripts -->
@@ -42,7 +42,27 @@
             </div>
 
             <ul class="c-sidebar-nav">
-                {{ $sidebar ?? '' }}
+                <li class="c-sidebar-nav-title">Menu</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{route('user.index')}}">
+                      <i class="c-sidebar-nav-icon cil-speedometer"></i> User
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{route('admin.index')}}">
+                      <i class="c-sidebar-nav-icon cil-speedometer"></i> Admin
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{route('scan.index')}}">
+                      <i class="c-sidebar-nav-icon cil-speedometer"></i> Scan
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{route('role.index')}}">
+                      <i class="c-sidebar-nav-icon cil-speedometer"></i> Role
+                    </a>
+                </li>
             </ul>
 
             <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
@@ -175,6 +195,7 @@
 
         <script src="{{ mix('js/app.js') }}"></script>
         <script src="{{ mix('js/core-ui.js') }}"></script>
+        <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
         @livewireScripts
         @stack('scripts')
     </body>

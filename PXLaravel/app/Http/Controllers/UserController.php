@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\UsersDataTable;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -11,9 +14,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
-        //
+        return  $dataTable->render("user.index");
     }
 
     /**
@@ -23,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return  view("user.create");
     }
 
     /**
@@ -34,7 +37,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|unique:users|max:255',
+            'password' => 'required|max:255',
+            'role_id' => 'required',
+        ]);
+        $new = new User();
+        $new->name = $request->name;
+        $new->email = $request->email;
+        $new->password = Hash::make($request->password);
+        $new->role_id = $request->role_id;
+        if($new->save()){
+            return redirect(route('user.index'));
+        }
+
     }
 
     /**
