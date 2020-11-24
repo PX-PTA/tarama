@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         JetstrapFacade::bootstrap4();
-        JetstrapFacade::useCoreUi3();
         Paginator::useBootstrap();
+        JetstrapFacade::useCoreUi3();
     }
 }
