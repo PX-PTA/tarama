@@ -6,6 +6,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\FaceController;
+use App\Http\Controllers\CellController;
+use App\Http\Controllers\PrisonerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,12 +38,29 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/update', [UserController::class, 'update'])->name('user.update');
         Route::delete('/delete', [UserController::class, 'delete'])->name('user.delete');
     });
+    Route::group(['prefix' => 'prisoner'], function () {
+        Route::get('/', [PrisonerController::class, 'index'])->name('prisoner.index');
+        Route::get('/create', [PrisonerController::class, 'create'])->name('prisoner.create');
+        Route::get('/edit', [PrisonerController::class, 'edit'])->name('prisoner.edit');
+        Route::post('/store', [PrisonerController::class, 'store'])->name('prisoner.store');
+        Route::post('/update', [PrisonerController::class, 'update'])->name('prisoner.update');
+        Route::delete('/delete', [PrisonerController::class, 'delete'])->name('prisoner.delete');
+    });
+    Route::group(['prefix' => 'cell'], function () {
+        Route::get('/', [CellController::class, 'index'])->name('cell.index');
+        Route::get('/create', [CellController::class, 'create'])->name('cell.create');
+        Route::get('/edit', [CellController::class, 'edit'])->name('cell.edit');
+        Route::post('/store', [CellController::class, 'store'])->name('cell.store');
+        Route::post('/update', [CellController::class, 'update'])->name('cell.update');
+        Route::delete('/delete', [CellController::class, 'delete'])->name('cell.delete');
+    });
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     });
     Route::group(['prefix' => 'scan'], function () {
         Route::get('/', [ScanController::class, 'index'])->name('scan.index');
         Route::get('/create', [ScanController::class, 'create'])->name('scan.create');
+        Route::get('/create2', [ScanController::class, 'create2'])->name('scan.create2');
         Route::post('/store', [ScanController::class, 'store'])->name('scan.store');
         Route::delete('/delete', [ScanController::class, 'delete'])->name('scan.delete');
     });

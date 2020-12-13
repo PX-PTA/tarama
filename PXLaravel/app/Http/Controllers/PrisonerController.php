@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prisoner;
 use Illuminate\Http\Request;
-use App\DataTables\UsersDataTable;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\DataTables\PrisonerDataTable;
 
-class UserController extends Controller
+class PrisonerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UsersDataTable $dataTable)
+    public function index(PrisonerDataTable $dataTable)
     {
-        return  $dataTable->render("user.index");
+        return  $dataTable->render("prisoner.index");
     }
 
     /**
@@ -26,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return  view("user.create");
+        return  view("prisoner.create");
     }
 
     /**
@@ -37,29 +36,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users|max:255',
-            'role_id' => 'required',
-        ]);
-        $new = new User();
-        $new->name = $request->name;
-        $new->email = $request->email;
-        $new->password = Hash::make($request->email);
-        $new->role_id = $request->role_id;
-        if($new->save()){
-            return redirect(route('user.index'));
-        }
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Prisoner  $prisoner
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Prisoner $prisoner)
     {
         //
     }
@@ -67,10 +53,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Prisoner  $prisoner
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Prisoner $prisoner)
     {
         //
     }
@@ -79,10 +65,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Prisoner  $prisoner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Prisoner $prisoner)
     {
         //
     }
@@ -90,10 +76,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Prisoner  $prisoner
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Prisoner $prisoner)
     {
         //
     }

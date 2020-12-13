@@ -24,7 +24,7 @@ class UserScanController extends Controller
      */
     public function create()
     {
-        //
+        return view('scan.create2');
     }
 
     /**

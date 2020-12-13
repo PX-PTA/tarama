@@ -14,10 +14,20 @@
         </div>
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <form method="get" action="{{ route('scan.create2') }} ">
+                <form method="post" action="{{ route('scan.store') }} ">
                     @csrf
                     <div class="card-body text-center">    
-                        <img src="{{asset('assets/image/face_template.jpg')}}" width="50%">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Example select</label>
+                            <select  class="form-control" name="user_id" required="required">
+                                <option value=''>pick one</option>
+                                @if($users->count() > 0)
+                                    @foreach ($users as $user)
+                                        <option value='{{$user->id}}'>{{$user->name}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
                     </div>
                     <div class="card-footer d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary">

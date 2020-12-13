@@ -16,7 +16,11 @@ class CreateUserScansTable extends Migration
         Schema::create('user_scans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->boolean("is_active");
+            $table->foreignId('prisoner_id')->constrained('prisoners');
+            $table->foreignId('cell_id')->constrained('cells');
+            $table->text('reason')->constrained('users');
+            $table->integer('status')->default(0);
+            $table->boolean('is_active');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +33,18 @@ class CreateUserScansTable extends Migration
      */
     public function down()
     {
+        if (Schema::hasColumn('user_scans', 'cell_id'))
+        {
+            Schema::table('user_scans', function (Blueprint $table) {
+                $table->dropForeign(['cell_id']);
+            });
+        }
+        if (Schema::hasColumn('user_scans', 'prisoner_id'))
+        {
+            Schema::table('user_scans', function (Blueprint $table) {
+                $table->dropForeign(['prisoner_id']);
+            });
+        }
         if (Schema::hasColumn('user_scans', 'user_id'))
         {
             Schema::table('user_scans', function (Blueprint $table) {

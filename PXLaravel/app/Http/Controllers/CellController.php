@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cell;
 use Illuminate\Http\Request;
-use App\DataTables\UsersDataTable;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\DataTables\CellDataTable;
 
-class UserController extends Controller
+class CellController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UsersDataTable $dataTable)
+    public function index(CellDataTable $dataTable)
     {
-        return  $dataTable->render("user.index");
+        return $dataTable->render("cell.index");
     }
 
     /**
@@ -26,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return  view("user.create");
+        return view("cell.create");
     }
 
     /**
@@ -39,27 +38,22 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|unique:users|max:255',
-            'role_id' => 'required',
         ]);
-        $new = new User();
-        $new->name = $request->name;
-        $new->email = $request->email;
-        $new->password = Hash::make($request->email);
-        $new->role_id = $request->role_id;
-        if($new->save()){
-            return redirect(route('user.index'));
-        }
+        $newCell = new Cell;
+        $newCell->name = $request->name;
+        $newCell->desc = $request->desc;
+        $newCell->save();
 
+        return redirect(route('cell.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Cell  $cell
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cell $cell)
     {
         //
     }
@@ -67,10 +61,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Cell  $cell
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cell $cell)
     {
         //
     }
@@ -79,10 +73,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Cell  $cell
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cell $cell)
     {
         //
     }
@@ -90,10 +84,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Cell  $cell
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cell $cell)
     {
         //
     }

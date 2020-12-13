@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DataTables\ScanDataTable;
+use App\Models\UserScan;
+use App\Models\User;
 
 class ScanController extends Controller
 {
@@ -14,7 +16,7 @@ class ScanController extends Controller
      */
     public function index(ScanDataTable $dataTable)
     {
-        return  $dataTable->render("scan.index");
+        return $dataTable->render("scan.index");
     }
 
     /**
@@ -27,6 +29,17 @@ class ScanController extends Controller
         return  view("scan.create");
     }
 
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create2()
+    {  
+        $users = User::get();
+        return  view("scan.create2")->with('users',$users);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +48,10 @@ class ScanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newScan = new UserScan;
+        $newScan->user_id = $request->user_id;
+        $newScan->is_active = true;
+        $newScan->save();
     }
 
     /**

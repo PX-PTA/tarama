@@ -45,7 +45,17 @@
                 <li class="c-sidebar-nav-title">Menu</li>
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="{{route('user.index')}}">
-                      <i class="c-sidebar-nav-icon cil-speedometer"></i> User
+                      <i class="c-sidebar-nav-icon cil-speedometer"></i> Guest
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{route('prisoner.index')}}">
+                      <i class="c-sidebar-nav-icon cil-speedometer"></i> Prisoner
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{route('cell.index')}}">
+                      <i class="c-sidebar-nav-icon cil-speedometer"></i> Cell
                     </a>
                 </li>
                 <li class="c-sidebar-nav-item">
