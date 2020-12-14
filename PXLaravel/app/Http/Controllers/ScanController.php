@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\DataTables\ScanDataTable;
 use App\Models\UserScan;
 use App\Models\User;
+use App\Models\PrisonerCell;
+use App\Models\Prisoner;
+use Illuminate\Support\Facades\Auth;
 
 class ScanController extends Controller
 {
@@ -26,7 +29,7 @@ class ScanController extends Controller
      */
     public function create()
     {
-        return  view("scan.create");
+        return view("scan.create");
     }
 
         /**
@@ -37,7 +40,10 @@ class ScanController extends Controller
     public function create2()
     {  
         $users = User::get();
-        return  view("scan.create2")->with('users',$users);
+        $prisoners = Prisoner::get();
+        return view("scan.create2")
+        ->with('users',$users)
+        ->with('prisoners',$prisoners);
     }
 
     /**
@@ -48,10 +54,15 @@ class ScanController extends Controller
      */
     public function store(Request $request)
     {
+        $cell = PrisonerCell::where('prisoner_id',$request->prisoner_id)->first();
         $newScan = new UserScan;
-        $newScan->user_id = $request->user_id;
+        $newScan->user_id = Auth::User()->id;
+        $newScan->prisoner_id = $request->prisoner_id;
+        $newScan->cell_id = $cell->cell_id;
         $newScan->is_active = true;
         $newScan->save();
+
+        return redirect()->route('scan.index');
     }
 
     /**

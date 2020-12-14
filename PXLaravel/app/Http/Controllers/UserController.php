@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
-        return  $dataTable->render("user.index");
+        return $dataTable->render("user.index");
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return  view("user.create");
+        return view("user.create");
     }
 
     /**

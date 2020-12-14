@@ -15,7 +15,7 @@ class RoleController extends Controller
      */
     public function index(RoleDataTable $dataTable)
     {
-        return  $dataTable->render("scan.index");
+        return $dataTable->render("role.index");
     }
 
 

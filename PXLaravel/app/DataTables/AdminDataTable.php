@@ -21,7 +21,9 @@ class AdminDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'admin.action');
+            ->addColumn('action', function(User $user) {
+                return '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>&nbsp<button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>';
+            });
     }
 
     /**
@@ -66,7 +68,7 @@ class AdminDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(150)
                   ->addClass('text-center'),
         ];
     }

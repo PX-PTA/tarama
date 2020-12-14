@@ -21,7 +21,9 @@ class CellDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'cell.action');
+            ->addColumn('action', function(Cell $cell) {
+                return '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>&nbsp<button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>&nbsp<button type="button" class="btn btn-danger"><i class="fas fa-user-times"></i></button>';
+            });
     }
 
     /**
@@ -67,12 +69,10 @@ class CellDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(180)
                   ->addClass('text-center'),
         ];
     }

@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-md-4">
             <x-jet-section-title>
-                <x-slot name="title">Create New User</x-slot>
-                <x-slot name="description">Create new User</x-slot>
+                <x-slot name="title">Create New Guest</x-slot>
+                <x-slot name="description">Create new Guest</x-slot>
             </x-jet-section-title>
         </div>
         <div class="col-md-8">
@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <x-jet-label for="role" value="{{ __('Role') }}" />
                             <select id="role_id" class="form-control {{ $errors->has('role_id') ? 'is-invalid' : '' }}" name="role_id">
-                                <option value='3'>User</option>
+                                <option value='3'>Guest</option>
                                 <option value='2'>Admin</option>
                             </select>
                             <x-jet-input-error for="role" />
