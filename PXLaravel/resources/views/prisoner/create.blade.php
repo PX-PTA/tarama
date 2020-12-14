@@ -8,33 +8,51 @@
     <div class="row">
         <div class="col-md-4">
             <x-jet-section-title>
-                <x-slot name="title">Create New User</x-slot>
-                <x-slot name="description">Create new User</x-slot>
+                <x-slot name="title">Create New Prisoner</x-slot>
+                <x-slot name="description">Create new Prisoner</x-slot>
             </x-jet-section-title>
         </div>
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <form method="post" action="{{ route('user.store') }} ">
+                <form method="post" action="{{ route('prisoner.store') }} ">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <x-jet-label for="name" value="{{ __('Name') }}" />
-                            <x-jet-input name="name" id="name" type="text" class="{{ $errors->has('name') ? 'is-invalid' : '' }}" wire:model.defer="state.name" autocomplete="name" />
+                            <x-jet-input required='required' name="name" id="name" type="text" class="{{ $errors->has('name') ? 'is-invalid' : '' }}" wire:model.defer="state.name" autocomplete="name" />
                             <x-jet-input-error for="name" />
-                        </div>
+                        </div> 
                         <div class="form-group">
-                            <x-jet-label for="email" value="{{ __('Email') }}" />
-                            <x-jet-input name="email" id="email" type="email" class="{{ $errors->has('email') ? 'is-invalid' : '' }}" wire:model.defer="state.email" autocomplete="email" />
-                            <x-jet-input-error for="email" />
-                        </div>
+                            <x-jet-label for="dob" value="Date Of Birth" />
+                            <x-jet-input required='required' name="dob" id="dob" type="date" class="{{ $errors->has('dob') ? 'is-invalid' : '' }}" wire:model.defer="state.dob" />
+                            <x-jet-input-error for="dob" />
+                        </div> 
                         <div class="form-group">
-                            <x-jet-label for="role" value="{{ __('Role') }}" />
-                            <select id="role_id" class="form-control {{ $errors->has('role_id') ? 'is-invalid' : '' }}" name="role_id">
-                                <option value='3'>User</option>
-                                <option value='2'>Admin</option>
+                            <x-jet-label for="cell_id" value="Gender" />
+                            <select required='required' class=" {{ $errors->has('gender') ? 'is-invalid' : '' }} form-control" name="cell_id">
+                                <option value="">Cell</option>
+                                @if($cells)
+                                    @foreach($cells as $cell)
+                                        <option value="{{$cell->id}}">{{$cell->name}}</option>
+                                    @endforeach
+                                @endif
                             </select>
-                            <x-jet-input-error for="role" />
-                        </div>      
+                            <x-jet-input-error for="cell_id" />
+                        </div> 
+                        <div class="form-group">
+                            <x-jet-label for="gender" value="Gender" />
+                            <select required='required' class=" {{ $errors->has('gender') ? 'is-invalid' : '' }} form-control" name="gender">
+                                <option value=''>Gender</option>
+                                <option value='1'>Female</option>
+                                <option value='2'>Male</option>
+                            </select>
+                            <x-jet-input-error for="gender" />
+                        </div> 
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea name="address" class="form-control" id="address" rows="3"></textarea>
+                            <x-jet-input-error for="address" />
+                        </div>    
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">

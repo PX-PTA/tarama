@@ -15,7 +15,7 @@ class CreatePrisonerCellTable extends Migration
     {
         Schema::create('prisoner_cells', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('prisoner_id')->constrained('prisoners');
             $table->foreignId('cell_id')->constrained('cells');
             $table->timestamps();
             $table->softDeletes();
@@ -29,10 +29,10 @@ class CreatePrisonerCellTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('prisoner_cells', 'user_id'))
+        if (Schema::hasColumn('prisoner_cells', 'prisoner_id'))
         {
             Schema::table('prisoner_cells', function (Blueprint $table) {
-                $table->dropForeign(['user_id']);
+                $table->dropForeign(['prisoner_id']);
             });
         }
         if (Schema::hasColumn('prisoner_cells', 'cell_id'))
