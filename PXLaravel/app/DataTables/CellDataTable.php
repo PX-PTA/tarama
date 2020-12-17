@@ -21,8 +21,11 @@ class CellDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function(Cell $cell) {
-                return '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>&nbsp<button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>&nbsp<button type="button" class="btn btn-danger"><i class="fas fa-user-times"></i></button>';
+            ->addColumn('action', function(Cell $cell) {                
+                $infoButton = '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>';
+                $editButton = '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>';
+                $deleteButton =  '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>';
+                return $infoButton.'&nbsp'.$editButton;
             });
     }
 
