@@ -28,7 +28,18 @@ class UserController extends Controller
     {
         return view("user.create");
     }
-
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addFace($id)
+    {
+        //
+    }
+    
     /**
      * Store a newly created resource in storage.
      *

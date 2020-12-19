@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 font-weight-bold">
-            {{ __('User') }}
+            {{ __('Prisoner') }}
         </h2>
     </x-slot>
 
@@ -28,7 +28,7 @@
                             <x-jet-input-error for="dob" />
                         </div> 
                         <div class="form-group">
-                            <x-jet-label for="cell_id" value="Gender" />
+                            <x-jet-label for="cell_id" value="Cell" />
                             <select required='required' class=" {{ $errors->has('gender') ? 'is-invalid' : '' }} form-control" name="cell_id">
                                 <option value="">Cell</option>
                                 @if($cells)

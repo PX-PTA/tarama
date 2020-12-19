@@ -56,7 +56,7 @@ class ScanController extends Controller
     {
         $cell = PrisonerCell::where('prisoner_id',$request->prisoner_id)->first();
         $newScan = new UserScan;
-        $newScan->user_id = Auth::User()->id;
+        $newScan->user_id =  $request->user_id;
         $newScan->prisoner_id = $request->prisoner_id;
         $newScan->cell_id = $cell->cell_id;
         $newScan->is_active = true;

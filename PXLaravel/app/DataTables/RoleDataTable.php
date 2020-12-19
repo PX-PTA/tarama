@@ -20,13 +20,7 @@ class RoleDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables()
-            ->eloquent($query)
-            ->addColumn('action', function(Prisoner $prisoner) {
-                $infoButton = '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>';
-                $editButton = '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>';
-                $deleteButton =  '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>';
-                return $infoButton.'&nbsp'.$editButton;
-            });
+            ->eloquent($query);
     }
 
     /**

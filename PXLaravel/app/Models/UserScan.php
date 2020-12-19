@@ -10,4 +10,12 @@ class UserScan extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    /**
+     * Get the phone associated with the user.
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
 }
