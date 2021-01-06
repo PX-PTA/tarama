@@ -21,8 +21,7 @@ class PrisonerDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('cell', function(Prisoner $prisoner) {
-                
+            ->editColumn('cell', function(Prisoner $prisoner) {                
                 return 'Cell ' . $prisoner->id;
             })
             ->addColumn('action', 'prisoner.action');
