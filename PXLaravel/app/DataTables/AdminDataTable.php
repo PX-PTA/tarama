@@ -21,7 +21,11 @@ class AdminDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'admin.action');
+            ->addColumn('action', function(User $user) {
+                $infoButton = '<a href="'.route('admin.show',$user->id).'" type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></a>';
+                $addFaceButton = '<a href="'.route('admin.addFace',$user->id).'" type="button" class="btn btn-warning"><i style="color:white;" class="fas fa-user-circle"></i></a>';
+                return $infoButton.'&nbsp'.$addFaceButton;
+            });
     }
 
     /**
@@ -66,7 +70,7 @@ class AdminDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(170)
                   ->addClass('text-center'),
         ];
     }

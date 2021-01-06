@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Prisoner;
+use App\Models\PrisonerCell;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,10 +22,16 @@ class PrisonerDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('cell', function(Prisoner $prisoner) {                
-                return 'Cell ' . $prisoner->id;
+            ->editColumn('cell', function(Prisoner $prisoner) {
+                $CellPrisoner = PrisonerCell::where('prisoner_id',$prisoner->id)->first();
+                return 'Cell ' . $CellPrisoner->cell->name;
             })
-            ->addColumn('action', 'prisoner.action');
+            ->addColumn('action', function(Prisoner $prisoner) {
+                $infoButton = '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>';
+                $editButton = '<button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>';
+                $deleteButton =  '<button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>';
+                return $infoButton.'&nbsp'.$editButton;
+            });
     }
 
     /**
@@ -71,12 +78,10 @@ class PrisonerDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('cell'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(180)
                   ->addClass('text-center'),
         ];
     }

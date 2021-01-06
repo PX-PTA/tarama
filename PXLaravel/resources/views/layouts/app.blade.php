@@ -26,6 +26,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/core-ui.css') }}">
+        <link rel="stylesheet" href="{{ asset('fa/css/all.css') }}">
         
         @livewireStyles
 

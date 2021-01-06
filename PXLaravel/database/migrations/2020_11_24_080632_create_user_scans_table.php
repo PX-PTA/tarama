@@ -18,7 +18,7 @@ class CreateUserScansTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('prisoner_id')->constrained('prisoners');
             $table->foreignId('cell_id')->constrained('cells');
-            $table->text('reason')->constrained('users');
+            $table->text('reason')->nullable();
             $table->integer('status')->default(0);
             $table->boolean('is_active');
             $table->timestamps();

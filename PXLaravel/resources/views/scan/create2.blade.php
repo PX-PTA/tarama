@@ -18,12 +18,23 @@
                     @csrf
                     <div class="card-body text-center">    
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
+                            <label for="user_id">User</label>
                             <select  class="form-control" name="user_id" required="required">
                                 <option value=''>pick one</option>
                                 @if($users->count() > 0)
                                     @foreach ($users as $user)
                                         <option value='{{$user->id}}'>{{$user->name}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="prisoner_id">Prisoner</label>
+                            <select  class="form-control" name="prisoner_id" required="required">
+                                <option value=''>pick one</option>
+                                @if($prisoners->count() > 0)
+                                    @foreach ($prisoners as $prisoner)
+                                        <option value='{{$prisoner->id}}'>{{$prisoner->name}}</option>
                                     @endforeach
                                 @endif
                             </select>

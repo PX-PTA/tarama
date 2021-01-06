@@ -21,7 +21,13 @@ class UsersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'users.action');
+            ->addColumn('action', function(User $user) {
+                $infoButton = '<a href="'.route('user.show',$user->id).'" type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></a>';
+                $editButton = '<a href="'.route('user.edit',$user->id).'" type="button" class="btn btn-info"><i class="fas fa-edit"></i></a>';
+                $deleteButton =  '<a href="'.route('user.delete',$user->id).'" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></a>';
+                $addFaceButton = '<a href="'.route('user.addFace',$user->id).'" type="button" class="btn btn-warning"><i style="color:white;" class="fas fa-user-circle"></i></a>';
+                return $infoButton.'&nbsp'.$editButton.'&nbsp'.$deleteButton.'&nbsp'.$addFaceButton;
+            });
     }
 
     /**
@@ -68,7 +74,7 @@ class UsersDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(210)
                   ->addClass('text-center'),
         ];
     }

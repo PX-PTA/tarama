@@ -8,6 +8,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Carbon;
 
 class ScanDataTable extends DataTable
 {
@@ -21,7 +22,16 @@ class ScanDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'scan.action');
+            ->addColumn('guest', function(UserScan $userScan) {
+                return $userScan->user->name;
+            })
+            ->addColumn('time_scan', function(UserScan $userScan) {
+                return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $userScan->created_at);
+            })
+            ->addColumn('action', function(UserScan $userScan) {
+                $infoButton = '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>';
+                return $infoButton;
+            });
     }
 
     /**
@@ -63,11 +73,12 @@ class ScanDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('user_id'),
+            Column::make('guest'),
+            Column::make('time_scan'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(180)
                   ->addClass('text-center'),
         ];
     }

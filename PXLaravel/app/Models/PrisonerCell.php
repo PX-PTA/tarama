@@ -10,4 +10,9 @@ class PrisonerCell extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    
+    public function cell()
+    {
+        return $this->hasOne(Cell::class,'id');
+    }
 }
