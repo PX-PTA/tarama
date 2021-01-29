@@ -21,6 +21,7 @@ class CreateUserScansTable extends Migration
             $table->text('reason')->nullable();
             $table->integer('status')->default(0);
             $table->boolean('is_active');
+            $table->boolean("is_scan");
             $table->timestamps();
             $table->softDeletes();
         });

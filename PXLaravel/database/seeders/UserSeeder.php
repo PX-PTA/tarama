@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class UserSeeder extends Seeder
 {
@@ -33,6 +34,9 @@ class UserSeeder extends Seeder
             'email' => "SuperAdmin@admin.com",
             'password' => Hash::make('admin'),
             'role_id' => 1
+        ]);
+        DB::table('devices')->insert([
+            'name' => "Raspiberry Pi 3"
         ]);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\DataTables\UsersDataTable;
 use App\Models\User;
+use App\Models\UserFace;
+use App\Models\Device;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -35,9 +37,34 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addFace($id)
+    public function addFace(User $user)
     {
-        //
+        return view("user.addFace")->with("user",$user);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addFacePost(User $user)
+    {
+        $userFace = UserFace::where('user_id',$user->id)->where('is_scan',false)->first();
+        if(!$userFace){
+            $newUserFace = new UserFace;
+            $newUserFace->user_id = $user->id;
+            $newUserFace->face_photo = "";
+            $newUserFace->is_active = true;
+            $newUserFace->is_scan = false;
+            $newUserFace->save();
+        }
+
+        $device = Device::where('id',1)->first();
+        $device->is_add_face = true;
+        $device->save();
+
+        return view("user.addFacePost")->with("user",$user);
     }
     
     /**

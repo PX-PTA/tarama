@@ -18,6 +18,7 @@ class CreateUserFacesTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string("face_photo");
             $table->boolean("is_active");
+            $table->boolean("is_scan");
             $table->timestamps();
             $table->softDeletes();
         });
