@@ -81,3 +81,12 @@ Route::get('/device/{id}/addface', function ($id) {
         return null;
     }
 });
+
+Route::get('/device/{id}/scanFace', function ($id) {
+    $addFace = UserScan::where('is_scan',false)->with('user')->first();
+    if($addFace){
+        return $addFace->toJson();
+    }else{
+        return null;
+    }
+});
