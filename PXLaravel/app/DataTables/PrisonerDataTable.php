@@ -24,7 +24,7 @@ class PrisonerDataTable extends DataTable
             ->eloquent($query)
             ->editColumn('cell', function(Prisoner $prisoner) {
                 $CellPrisoner = PrisonerCell::where('prisoner_id',$prisoner->id)->first();
-                return 'Cell ' . $CellPrisoner->cell->name;
+                return 'Cell ' . $CellPrisoner->cell()->name;
             })
             ->addColumn('action', function(Prisoner $prisoner) {
                 $infoButton = '<button type="button" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>';
