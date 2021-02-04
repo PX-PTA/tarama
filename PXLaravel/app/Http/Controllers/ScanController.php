@@ -55,14 +55,17 @@ class ScanController extends Controller
     public function store(Request $request)
     {
         $cell = PrisonerCell::where('prisoner_id',$request->prisoner_id)->first();
+
         $newScan = new UserScan;
         $newScan->user_id =  $request->user_id;
         $newScan->prisoner_id = $request->prisoner_id;
         $newScan->cell_id = $cell->cell_id;
+        $newScan->is_scan = false;
+        $newScan->reason = "Visit";
+        $newScan->status = true;
         $newScan->is_active = true;
         $newScan->save();
 
-        return redirect()->route('scan.index');
     }
 
     /**
