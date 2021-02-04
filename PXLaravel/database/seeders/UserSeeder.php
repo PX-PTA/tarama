@@ -38,5 +38,15 @@ class UserSeeder extends Seeder
         DB::table('devices')->insert([
             'name' => "Raspiberry Pi 3"
         ]);
+        DB::table('prisoners')->insert([
+            'name' => "Prisoner",
+            'dob' => Carbon::now(),
+            'gender' => 1,
+            'address' => "Address"
+        ]);
+        DB::table('cells')->insert([
+            'name' => "Cell",
+            'desc' => "Sample Cell",
+        ]);
     }
 }

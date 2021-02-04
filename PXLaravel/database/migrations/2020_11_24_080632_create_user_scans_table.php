@@ -16,8 +16,8 @@ class CreateUserScansTable extends Migration
         Schema::create('user_scans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('prisoner_id')->constrained('prisoners');
-            $table->foreignId('cell_id')->constrained('cells');
+            $table->foreignId('prisoner_id')->constrained('prisoners')->nullable();
+            $table->foreignId('cell_id')->constrained('cells')->nullable();
             $table->text('reason')->nullable();
             $table->integer('status')->default(0);
             $table->boolean('is_active');
