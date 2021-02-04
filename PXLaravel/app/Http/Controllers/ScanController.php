@@ -8,6 +8,7 @@ use App\Models\UserScan;
 use App\Models\User;
 use App\Models\PrisonerCell;
 use App\Models\Prisoner;
+use App\Models\Device;
 use Illuminate\Support\Facades\Auth;
 
 class ScanController extends Controller
@@ -65,6 +66,14 @@ class ScanController extends Controller
         $newScan->status = true;
         $newScan->is_active = true;
         $newScan->save();
+
+        $device = Device::where('id',1)->first();
+        $device->is_scan = true;
+        $device->save();
+
+        $user = User::where('id',$request->user_id)->first();
+        
+        return view("user.addFacePost")->with("user",$user);
 
     }
 
