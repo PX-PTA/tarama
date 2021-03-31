@@ -73,7 +73,7 @@ class ScanController extends Controller
 
         $user = User::where('id',$request->user_id)->first();
         
-        return view("user.addFacePost")->with("user",$user);
+        return view("user.scanfacepost")->with("user",$user);
 
     }
 
