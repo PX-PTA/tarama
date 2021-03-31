@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Device;
+use App\Models\User;
 use App\Models\UserFace;
 use App\Models\UserScan;
 use Carbon\Carbon;
@@ -31,11 +32,28 @@ Route::post('/device/{id}/online', function (Request $request, $id) {
     return $device;
 });
 
+Route::post('/device/{id}/donescan', function (Request $request, $id) {
+    $device = Device::findOrFail($id);
+    $device->is_scan = 0;
+    $device->save();
+    return $device;
+});
+
+Route::post('/device/{id}/addface', function (Request $request, $id) {
+    $device = Device::findOrFail($id);
+    $device->is_add_face = 0;
+    $device->save();
+    return $device;
+});
+
+
 Route::post('/device/{id}/scan', function (Request $request, $id) {
     $device = Device::findOrFail($id);
     
+    $user = User::where('email',$request->userId)->first();
+
     $newScan = new UserScan;
-    $newScan->user_id = $request->userId;
+    $newScan->user_id = $user->id;
     $newScan->prisoner_id = 1;
     $newScan->cell_id = 1;
     $newScan->reason = null;
@@ -44,6 +62,9 @@ Route::post('/device/{id}/scan', function (Request $request, $id) {
     $newScan->is_scan = true;
     $newScan->save();
     
+    $device->is_scan = 0;
+    $device->save();
+
     return $device;
 });
 
@@ -69,7 +90,12 @@ Route::post('/device/{id}/addFace/add', function (Request $request, $id) {
 });
 
 Route::get('/device/{id}', function ($id) {
+    $mutable = Carbon::now();
     $device = Device::findOrFail($id);
+    if($device->last_online < $mutable->add(-2, 'minute')){
+        $device->is_online = 0;
+        $device->save();
+    }
     return $device->toJson();
 });
 

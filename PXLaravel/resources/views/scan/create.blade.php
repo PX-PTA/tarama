@@ -28,4 +28,32 @@
             </div>
         </div>
     </div>    
+    <script>
+    
+    function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText);
+                    console.log(data.is_scan);
+                    if(data.is_scan == 0){
+                        window.location.href = "/user";
+                    }
+                }
+            };
+            xhttp.open("GET", "/api/device/1", true);
+            xhttp.send();
+        }
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+
+        setInterval(function() {
+            loadDoc();
+        }, 2 * 1000); // 60 * 1000 milsec
+    </script>
 </x-app-layout>
